@@ -8,6 +8,11 @@ mkdir -p /var/www/html/storage/framework/views /var/www/html/storage/framework/s
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache || true
 
+# Ensure bootstrap cache dir exists and is writable
+mkdir -p /var/www/html/bootstrap/cache
+chown -R www-data:www-data /var/www/html/bootstrap/cache
+chmod -R 775 /var/www/html/bootstrap/cache || true
+
 # If an APP_KEY is not set, warn (do not generate here)
 if [ -z "$APP_KEY" ]; then
   echo "Warning: APP_KEY is not set. Set APP_KEY in environment variables."
@@ -26,12 +31,7 @@ php artisan storage:link || true
 php artisan config:clear || echo "config:clear failed"
 php artisan cache:clear || echo "cache:clear failed"
 php artisan route:clear || echo "route:clear failed"
-# Only run view:clear if the views path exists
-if [ -d "/var/www/html/resources/views" ]; then
-  php artisan view:clear || echo "view:clear failed"
-else
-  echo "Skipping view:clear — resources/views not found"
-fi
+echo "Skipping view:clear to avoid 'View path not found' errors in container startup"
 
 # Start Apache
 exec apache2-foreground

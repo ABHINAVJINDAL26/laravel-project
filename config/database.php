@@ -116,7 +116,7 @@ return [
 
         'mongodb' => [
             'driver' => 'mongodb',
-            'dsn' => env('DB_URI', env('MONGODB_URI')),
+            'dsn' => env('DB_URI', env('MONGODB_URI')) . '&tlsCAFile=/etc/ssl/certs/ca-certificates.crt',
             'database' => env('DB_DATABASE', 'from_my_stove_to_yours'),
         ],
 

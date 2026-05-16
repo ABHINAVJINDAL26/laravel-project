@@ -22,12 +22,16 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 
 WORKDIR /var/www/html
 
+# Install PHP dependencies
 COPY . .
-
 RUN composer install --no-interaction --no-dev --optimize-autoloader --prefer-dist
+
+# Add startup script which will run migrations, link storage, clear caches
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
 
 RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 EXPOSE 80
-CMD ["apache2-foreground"]
+CMD ["sh", "/usr/local/bin/start.sh"]

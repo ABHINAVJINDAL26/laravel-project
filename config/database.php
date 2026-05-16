@@ -116,8 +116,20 @@ return [
 
         'mongodb' => [
             'driver' => 'mongodb',
-            'dsn' => env('DB_URI', env('MONGODB_URI')) . '&tlsCAFile=/etc/ssl/certs/ca-certificates.crt',
+            'dsn' => env('DB_URI', env('MONGODB_URI')),
             'database' => env('DB_DATABASE', 'from_my_stove_to_yours'),
+            'driver_options' => [
+                'context' => stream_context_create([
+                    'ssl' => [
+                        'verify_peer' => true,
+                        'cafile' => file_exists('/etc/ssl/certs/ca-certificates.crt')
+                            ? '/etc/ssl/certs/ca-certificates.crt'
+                            : (file_exists('/etc/pki/tls/certs/ca-bundle.crt')
+                                ? '/etc/pki/tls/certs/ca-bundle.crt'
+                                : null),
+                    ],
+                ]),
+            ],
         ],
 
     ],

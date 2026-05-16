@@ -8,8 +8,11 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libfreetype6-dev \
     libssl-dev \
+    libsqlite3-dev \
+    ca-certificates \
+    && update-ca-certificates --fresh \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql \
+    && docker-php-ext-install gd pdo pdo_mysql pdo_sqlite \
     && pecl install mongodb \
     && docker-php-ext-enable mongodb \
     && a2enmod rewrite

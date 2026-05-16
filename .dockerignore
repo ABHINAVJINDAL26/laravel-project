@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+docker-build.log
+.git
+.github
+vendor
+storage
+tests
+*.env
+*.env.*
+# If you plan to COPY a prebuilt frontend into the image, remove `public/build` from this file so it is included in the build context.

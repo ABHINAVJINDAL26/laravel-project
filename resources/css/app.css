@@ -1,0 +1,38 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --color-vintage-dark: #2D2926;
+    --color-vintage-terracotta: #C87941;
+    --color-vintage-cream: #F4E3CF;
+    --color-vintage-paper: #FDFAF6;
+    --color-vintage-clay: #8B4513;
+
+    --font-outfit: 'Outfit', sans-serif;
+    --font-quicksand: 'Quicksand', sans-serif;
+}
+
+@layer base {
+    body {
+        font-family: var(--font-quicksand);
+        background-color: var(--color-vintage-dark);
+        color: var(--color-vintage-cream);
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-outfit);
+    }
+}
+
+@layer components {
+    .glass-card {
+        background-color: rgb(45 41 38 / 0.4);
+        backdrop-filter: blur(16px);
+        border-radius: 3rem;
+    }
+}
